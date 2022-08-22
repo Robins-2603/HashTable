@@ -7,8 +7,10 @@ public class MyHashTable  <K,V>{
     MyMapNode<K, V> tail;
     private final int numOfBuckets;
     ArrayList<MyMapNode<K, V>> myBucketArray;
+
+    // default constructor
     public MyHashMap() {
-        this.numOfBuckets = 10;
+        this.numOfBuckets = 20;
         this.myBucketArray = new ArrayList<>(numOfBuckets);
         // Create empty LinkedLists
         for (int i = 0; i < numOfBuckets; i++)
@@ -83,6 +85,25 @@ public class MyHashTable  <K,V>{
             this.tail.setNext(myNode);
             this.tail = myNode;
         }
+    }
+
+
+    // Method to remove a word
+    //  key : word to be removed
+    public void remove(K key) {
+        MyMapNode<K, V> currentNode = head;
+        MyMapNode<K, V> previousNode = null;
+        while (currentNode != null && currentNode.getKey().equals(key)) {
+            head = currentNode.getNext();
+        }
+        while (currentNode != null && !(currentNode.getKey().equals(key))) {
+            previousNode = currentNode;
+            currentNode = currentNode.getNext();
+        }
+        if (currentNode != null)
+            previousNode.next = currentNode.next;
+        if (currentNode == null)
+            System.out.println("Word not found");
     }
     @Override
     public String toString() {
